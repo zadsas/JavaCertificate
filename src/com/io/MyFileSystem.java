@@ -1,12 +1,13 @@
 package com.io;
 
 import java.io.IOException;
+import java.nio.file.FileStore;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileSystem {
+public class MyFileSystem {
 
 	public static void main(String[] args) {
 		// Reference to the filesystem accessible by the JVM
@@ -17,6 +18,11 @@ public class FileSystem {
 		Iterable<Path> rootDirectories = fs.getRootDirectories();
 		for (Path path : rootDirectories) {
 			System.out.println("ROOT: " + path);
+		}
+
+		Iterable<FileStore> fileStores = fs.getFileStores();
+		for (FileStore fstore : fileStores) {
+			System.out.println("File store: " + fstore);
 		}
 
 		// Absolute paths
@@ -53,12 +59,11 @@ public class FileSystem {
 
 		// Normalize paths
 		System.out.println("\nNORMALIZE PATHS");
-		path = Paths.get("/home/docs/../music/SpaceMachine A.mp3");
+		path = Paths.get("/home/docs/../music/SpaceMachine A.mp3"); 
 		System.out.println("Absolute path: " + path.toAbsolutePath());
 		System.out.println("URI: " + path.toUri());
 		System.out.println("Normalized Path: " + path.normalize());
 		System.out.println("Normalized URI: " + path.normalize().toUri());
-		
 
 		// Resolve paths
 		System.out.println("\nRESOLVE PATHS");
@@ -68,7 +73,7 @@ public class FileSystem {
 		System.out.println("rootPath: " + rootPath);
 		System.out.println("partialPath: " + partialPath);
 		System.out.println("resolvedPath: " + resolvedPath);
-		System.out.println("Resolved absolute path: " + resolvedPath.toAbsolutePath());
-		
+		System.out.println("Resolved absolute path: "
+				+ resolvedPath.toAbsolutePath());
 	}
 }
